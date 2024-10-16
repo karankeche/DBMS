@@ -1,0 +1,43 @@
+Name:Kiran Arjun Patil
+Roll No:3101061
+Class:TE
+Div:A
+Batch:D
+
+test> use students
+switched to db students
+students> db.students.insertMany([{ Rollno: 1, Name: "Kiran", Class: "TE", Div: "A", Subject: "TOC", Marks: 80,Address: { City: "Pune", Area: "Shivaji Nagar" }},{ Rollno: 2, Name: "Omkar", Class: "TE", Div: "B", Subject: "DBMS", Marks:65, Address: { City: "Mumbai", Area: "Bandra" }},{ Rollno: 3, Name: "Sara", Class: "TE", Div: "A", Subject: "SPOS", Marks: 90,Address: { City: "Pune", Area: "Kothrud" }},{ Rollno: 4, Name: "Shrutik", Class: "TE", Div: "B", Subject: "TOC", Marks: 70,Address: { City: "Nagpur", Area: "Dharampeth" }},{ Rollno: 5, Name: "Vithal", Class: "TE", Div: "B", Subject: "DBMS", Marks:55, Address: { City: "Pune", Area: "Aundh" }},{ Rollno: 6, Name: "Karan", Class: "TE", Div: "A", Subject: "SPOS", Marks: 75,Address: { City: "Pune", Area: "Baner" }}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66fadd2b5042d89a9dc73bf8'),
+    '1': ObjectId('66fadd2b5042d89a9dc73bf9'),
+    '2': ObjectId('66fadd2b5042d89a9dc73bfa'),
+    '3': ObjectId('66fadd2b5042d89a9dc73bfb'),
+    '4': ObjectId('66fadd2b5042d89a9dc73bfc'),
+    '5': ObjectId('66fadd2b5042d89a9dc73bfd')
+  }
+}
+students> db.students.aggregate([{$match:{Subject:"TOC"}},{$group:{_id:null,avgMarks:{$avg:"$Marks"}}}])
+[ { _id: null, avgMarks: 75 } ]
+students> db.students.aggregate([{$group:{_id:"$Div",count:{$sum:1}}}])
+[ { _id: 'B', count: 3 }, { _id: 'A', count: 3 } ]
+students> db.students.aggregate([{$match:{Div:"B",Subject:"DBMS"}},{$group:{_id:null,minmarks:{$min:"$Marks"}}}])
+[ { _id: null, minmarks: 55 } ]
+students> db.students.aggregate([{$match:{Subject:"SPOS","Address.City":"Pune"}},{$group:{_id:null,totalMarks:{$sum:"$Marks"}}}])
+[ { _id: null, totalMarks: 165 } ]
+students> db.students.aggregate([{$match:{Subject:"DBMS"}},{$group:{_id:"$Div",count:{$sum:1}}}])
+[ { _id: 'B', count: 2 } ]
+students> db.students.aggregate([{$group:{_id:"$Address.City",count:{$sum:1}}}])
+[
+  { _id: 'Pune', count: 4 },
+  { _id: 'Mumbai', count: 1 },
+  { _id: 'Nagpur', count: 1 }
+]
+students> db.students.createIndex({Name:1,Class:1})
+Name_1_Class_1
+students> db.students.createIndex({Name:1})
+Name_1
+students> db.students.dropIndex({Name:1})
+{ nIndexesWas: 3, ok: 1 }
+

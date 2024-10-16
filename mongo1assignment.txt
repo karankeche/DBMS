@@ -1,0 +1,178 @@
+Name:Kiran Arjun Patil
+Roll NO:3101061
+class:TE
+Div:A
+Batch:D
+
+test> use studentinfo
+studentinfo> db.studentinfo.insertMany([{"first name":"Vithal","last name":"Kendre","gender":"male","class":"TEA","grd_point":35,"age":20,"city":"Banglore","course":"BCA"},{"first name":"Kiran","last name":"Patil","gender":"male","class":"TEA","grd_point":37,"age":20,"city":"Karad","course":"BCA"},{"first name":"Shrutik","last name":"Kokare","gender":"male","class":"TEA","grd_point":34,"age":20,"city":"Satara","course":"BCA"},{"first name":"Karan","last name":"keche","gender":"male","class":"TEB","grd_point":30,"age":21,"city":"Mumbai","course":"BCA"},{"first name":"Omkar","last name":"Bhagat","gender":"male","class":"TEB","grd_point":29,"age":22,"city":"Nagpur","course":"BCA"}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66faa890f406d78186c73bf8'),
+    '1': ObjectId('66faa890f406d78186c73bf9'),
+    '2': ObjectId('66faa890f406d78186c73bfa'),
+    '3': ObjectId('66faa890f406d78186c73bfb'),
+    '4': ObjectId('66faa890f406d78186c73bfc')
+  }
+}
+studentinfo> db.studentinfo.find({"gender":"male","class":"TEA","grd_point":{$gte:31}})
+[
+  {
+    _id: ObjectId('66faa890f406d78186c73bf8'),
+    'first name': 'Vithal',
+    'last name': 'Kendre',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 35,
+    age: 20,
+    city: 'Banglore',
+    course: 'BCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bf9'),
+    'first name': 'Kiran',
+    'last name': 'Patil',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 37,
+    age: 20,
+    city: 'Karad',
+    course: 'BCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bfa'),
+    'first name': 'Shrutik',
+    'last name': 'Kokare',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 34,
+    age: 20,
+    city: 'Satara',
+    course: 'BCA'
+  }
+]
+studentinfo> db.studentinfo.find({"city":"Banglore","age":20})
+[
+  {
+    _id: ObjectId('66faa890f406d78186c73bf8'),
+    'first name': 'Vithal',
+    'last name': 'Kendre',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 35,
+    age: 20,
+    city: 'Banglore',
+    course: 'BCA'
+  }
+]
+
+studentinfo> db.studentinfo.updateOne({"first name":"Shrutik"},{$set:{"course":"MCA"}})
+{
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+studentinfo> db.studentinfo.find({"first name":"Shrutik"})
+[
+  {
+    _id: ObjectId('66faa890f406d78186c73bfa'),
+    'first name': 'Shrutik',
+    'last name': 'Kokare',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 34,
+    age: 20,
+    city: 'Satara',
+    course: 'MCA'
+  }
+]
+studentinfo> db.studentinfo.deleteOne({"age":22,"gender":"male"})
+{ acknowledged: true, deletedCount: 1 }
+studentinfo> db.studentinfo.find()
+[
+  {
+    _id: ObjectId('66faa890f406d78186c73bf8'),
+    'first name': 'Vithal',
+    'last name': 'Kendre',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 35,
+    age: 20,
+    city: 'Banglore',
+    course: 'BCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bf9'),
+    'first name': 'Kiran',
+    'last name': 'Patil',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 37,
+    age: 20,
+    city: 'Karad',
+    course: 'BCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bfa'),
+    'first name': 'Shrutik',
+    'last name': 'Kokare',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 34,
+    age: 20,
+    city: 'Satara',
+    course: 'MCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bfb'),
+    'first name': 'Karan',
+    'last name': 'keche',
+    gender: 'male',
+    class: 'TEB',
+    grd_point: 30,
+    age: 21,
+    city: 'Mumbai',
+    course: 'BCA'
+  }
+]
+studentinfo> db.studentinfo.deleteOne({"last name":"keche","class":"TEB"})
+{ acknowledged: true, deletedCount: 1 }
+studentinfo> db.studentinfo.find()
+[
+  {
+    _id: ObjectId('66faa890f406d78186c73bf8'),
+    'first name': 'Vithal',
+    'last name': 'Kendre',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 35,
+    age: 20,
+    city: 'Banglore',
+    course: 'BCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bf9'),
+    'first name': 'Kiran',
+    'last name': 'Patil',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 37,
+    age: 20,
+    city: 'Karad',
+    course: 'BCA'
+  },
+  {
+    _id: ObjectId('66faa890f406d78186c73bfa'),
+    'first name': 'Shrutik',
+    'last name': 'Kokare',
+    gender: 'male',
+    class: 'TEA',
+    grd_point: 34,
+    age: 20,
+    city: 'Satara',
+    course: 'MCA'
+  }
+]

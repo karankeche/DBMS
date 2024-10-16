@@ -1,0 +1,36 @@
+Name:Kiran Arjun Patil
+Roll No:3101061
+Class:TE  Div:A
+Batch:D
+
+
+test> use marks
+switched to db marks
+marks> db.marks.insertMany([{"name":"Kiran Patil","marks":{"DBMS":80,"TOC":80,"SPOS":79}},{"name":"Shrutik Kokare","marks":{"DBMS":87,"TOC":84,"SPOS":60}},{"name":"Vithal Kendare","marks":{"DBMS":60,"TOC":50,"SPOS":50}},{"name":"Karan Keche","marks":{"DBMS":60,"TOC":70,"SPOS":79}},{"name":"Omkar Bhagat","marks":{"DBMS":39,"TOC":50,"SPOS":70}},{"name":"Mahesh Patil","marks":{"DBMS":46,"TOC":69,"SPOS":60}},{"name":"Rohit Patil","marks":{"DBMS":20,"TOC":40,"SPOS":60}}])
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('66fa2b49a0b42f20c1c73bf8'),
+    '1': ObjectId('66fa2b49a0b42f20c1c73bf9'),
+    '2': ObjectId('66fa2b49a0b42f20c1c73bfa'),
+    '3': ObjectId('66fa2b49a0b42f20c1c73bfb'),
+    '4': ObjectId('66fa2b49a0b42f20c1c73bfc'),
+    '5': ObjectId('66fa2b49a0b42f20c1c73bfd'),
+    '6': ObjectId('66fa2b49a0b42f20c1c73bfe')
+  }
+}
+marks> var map=function(){var dbmsMarks=this.marks.DBMS;
+... if(dbmsMarks>70){emit("Highscores",1);} else if(dbmsMarks>40 && dbmsMarks<=70){emit("Average Scores",1);} else{emit("Failed",1);}};
+
+marks> var reduce=function(key,values){return Array.sum(values);};
+
+marks> db.marks.mapReduce(map,reduce,{out:"student_Info"})
+DeprecationWarning: Collection.mapReduce() is deprecated. Use an aggregation instead.
+See https://docs.mongodb.com/manual/core/map-reduce for details.
+{ result: 'student_Info', ok: 1 }
+marks> db.student_Info.find()
+[
+  { _id: 'Failed', value: 2 },
+  { _id: 'Highscores', value: 2 },
+  { _id: 'Average Scores', value: 3 }
+]
